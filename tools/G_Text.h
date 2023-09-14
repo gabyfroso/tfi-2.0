@@ -3,15 +3,44 @@
 #include <windows.h>
 #include <unistd.h>
 
-
 /*
 Seccion dedicada al texto para simplificar lo que diga
 */
 void GOptions_classic(int x);
-void GOptions_menu();
-void GOptions_Ajustes();
+void TXT_Options_menu();
+void TXT_Options_Ajustes();
+void TXTInfo();
 
-void GOptions_menu()
+void TXTInfo()
+{
+    char *xLogo[15] = {
+        "*********************",
+        "Nombre: Frosoni, Hugo Gabriel",
+        "DNI: 44866295",
+        "Legajo: 56657",
+        " ",
+        "\tCorreo:",
+        "Gabyfroso@gmail.com",
+        "\tNumero:"
+        "+54 9 381 616-4351"
+        " ",
+        "\tGithub: ",
+        "https://github.com/gabyfroso?tab=repositories",
+        "\tTwitter:",
+        "https://twitter.com/Gabyfroso",
+        "*********************"};
+
+    for (int i = 0; i < 15; i++)
+    {
+        if (i == 1 || i == 15)
+        {
+            printf("\n\n");
+        }
+        printf("%s", xLogo);
+    }
+}
+
+void TXT_Options_menu()
 {
     printf("\nMenu\n");
     printf("\n1)\t Trabajo Final Integrador");
@@ -21,7 +50,7 @@ void GOptions_menu()
     sleep(1);
 }
 
-void GOptions_Ajustes()
+void TXT_Options_Ajustes()
 {
     printf("\n\tMenu - Ajustes\n");
     printf("\n1)\t Activar/Desactivar Logo");

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include "tools/Structs.h"
 
 int Reset_Text = 0;
 int ExitPrograma = 0;
@@ -25,29 +26,6 @@ int VisualReset()
 {
     return Reset_Text;
 }
-
-struct Prefferences_struct
-{
-    char *CharData;
-
-    int Pref_Logo;
-    int Pref_ResetConsole;
-    int Pref_Color;
-
-    void (*ChangeReset)();
-    int Visual_Reset;
-
-    int ExtProgram;
-};
-
-struct FunctionNormal
-{
-    char *CharIntro;
-    char *Options;
-
-    void (*FunctionText)();
-    void (*FunctionSiguiente)();
-};
 
 
 int main(int argc, char const *argv[])

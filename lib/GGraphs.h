@@ -20,7 +20,10 @@ const char *LogoGatoMio[13] = {
 const int SizeLogoFila = 13;
 const int SizeLogoColumna = 28;
 
-int RecompletarDatos_y_Logo(const char *Intro)
+int GGraphs_RecompletarDatos_y_Logo(const char *Intro);
+void GGraphs_Logo();
+
+int GGraphs_RecompletarDatos_y_Logo(const char *Intro)
 {
     int salteoN = 0;
     int PosiCharIntro = 0;
@@ -60,7 +63,7 @@ int RecompletarDatos_y_Logo(const char *Intro)
     printf("\n");
 }
 
-void Logo_ChanelLogo()
+void GGraphs_Logo()
 {
     int SizeConsoleAnterior = SizeConsole();
 
