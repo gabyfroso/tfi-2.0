@@ -2,7 +2,11 @@
 #include <stdio.h>
 #include "./GConsole.h"
 
-const char *LogoGatoMio[13] = {
+void GGraphs_RecompletarDatos_y_Logo(const char *Intro);
+
+void GGraphs_RecompletarDatos_y_Logo(const char *Intro)
+{
+    const char *LogoGatoMio[13] = {
     "@@@@@/@@@@@@@@@@@@@/@@@@@",
     "@@@/////@@@@@@@@@&///&@@@",
     "@@///////@@@@@@@@/////&@@",
@@ -20,11 +24,6 @@ const char *LogoGatoMio[13] = {
 const int SizeLogoFila = 13;
 const int SizeLogoColumna = 28;
 
-int GGraphs_RecompletarDatos_y_Logo(const char *Intro);
-void GGraphs_Logo();
-
-int GGraphs_RecompletarDatos_y_Logo(const char *Intro)
-{
     int salteoN = 0;
     int PosiCharIntro = 0;
     for (int FilaConsole = 0; FilaConsole < SizeLogoFila; FilaConsole++)
@@ -61,39 +60,4 @@ int GGraphs_RecompletarDatos_y_Logo(const char *Intro)
     }
     PosiCharIntro = 0;
     printf("\n");
-}
-
-void GGraphs_Logo()
-{
-    int SizeConsoleAnterior = SizeConsole();
-
-    for (int i = 0; i < 13; i++)
-    {
-        for (int space = 0; space < SizeConsole() - SizeLogoFila; space++)
-        {
-            printf(" ");
-        }
-        printf("%s\n", LogoGatoMio[i]);
-    }
-
-    do
-    {
-        if (SizeConsoleAnterior != SizeConsole())
-        {
-            system("cls");
-            Sleep(20);
-            SizeConsoleAnterior = SizeConsole();
-            for (int i = 0; i < 13; i++)
-            {
-                for (int space = 0; space < SizeConsole() - 30; space++)
-                {
-                    printf(" ");
-                }
-                printf("%s\n", LogoGatoMio[i]);
-            }
-
-            Sleep(90);
-        }
-
-    } while ('d' == 'd');
 }

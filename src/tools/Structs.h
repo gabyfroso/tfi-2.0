@@ -1,21 +1,14 @@
-struct Structs_FPreff
-{
-    char *CharData;
-
-    int Pref_ConsoleControl;
-    int Pref_Color;
-
-    void (*ChangeReset)();
-    int Visual_Reset;
-
-    int ExtProgram;
-};
+#pragma once
 
 struct Structs_Fnormal
 {
-    void (*Text_Logo)();
-    void (*Text_Say)();
-    void (*Text_Say_add)();
+    void (*ChangePreff)(int[2]);
+
+    void (*Reset_text)();
     
-    void (*ExitProgram)(); // Finalizará el programa al ingresar -5
+    void (*Text_Logo)(char *);
+    void (*Text_Say)(char *);
+    void (*Text_Say_add)(char *);
+
+    void (*Exit_Program)(); // Finalizará el programa al ingresar -5
 };

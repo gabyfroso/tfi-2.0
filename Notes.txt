@@ -6,17 +6,19 @@ function x(void *args)
     char UserElect[10] == "";
 
     struct Structs_Fnormal *x_args = (struct Structs_Fnormal *)args;
-    void (*Text_Logo) = x_args->Text_Logo;
-    void (*Text_Say) = x_args->Text_Say;
-    void (*Text_Say_add) = x_args->Text_Say_add;
+    void (*Reset_text)() = x_args->Reset_text;
+    
+    void (*Text_Logo)(char *) = x_args->Text_Logo;
+    void (*Text_Say)(char *) = x_args->Text_Say;
+    void (*Text_Say_add)(char *) = x_args->Text_Say_add;
 
     void (*ExitProgram) = x_args->ExitProgram;
 
     do
     {
         Reset_Text(); //Reinicia los textos para no ocupar toda la pantalla con el de funcion anterior.
-        Text_Logo(TXT_x_char); //Muestra en el logo, si es que hay
-        Text_say(TXT_x); //Muestra en pantalla
+        Text_Logo(GTXT_x_Logo); //Muestra en el logo, si es que hay
+        Text_say(GTXT_x); //Muestra en pantalla
 
         Scan(UserElect);
 
@@ -28,16 +30,16 @@ function x(void *args)
 
         switch(UserElect)
         {
-            Case 1:
+            case 1:
                 {
                     ExampleFunction(args); //los mismos argumentos, sin necesidad de convertirlos para usarlos como antes
                 }
                 break;
-            Case...
+            case...
             ...
 
             ...
-            Case -5:
+            case -5:
                 Exit_Program(); //Forzar cierre
                 break;
             Default:
@@ -47,20 +49,13 @@ function x(void *args)
     
 
     //Para que si el usuario salió por error, revise lo que tenía los ejercicios y no se le reinicie.
-    System("PAUSE"); 
-
+    
     
     } while(atoi(UserElect) != 5)
-
+     Text_Say_add("");
 }
 
 recordar usar el Text_Saved_add para almacenar información extra, 
 ejemplo, datos ingresados por el usuario.
 
-
-
-
-////////////////////////////
-
-"Super funciones"
-
+y limpiarlo una vez salga de las funciones

@@ -1,91 +1,157 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <pthread.h>
+
+#include "../lib/GGraphs.h"
 #include "tools/Structs.h"
-#include "Functions/Info.h"
+
+#include "Functions/info.h"
+#include "Functions/Inicio.h"
 #include "Functions/Ajustes.h"
 
-int Reset_Text_value = 0;
+int TXT_Reset = 1;
 int NOExitProgram = 1; // SIEMPRE será el valor de -5 quien lo cierre
 
-int VisualPrefferences[2] = {1, 2}; // Logo with actualizaciones[0] - Color[1]
+// Logo y Act=3  Logo=2   Act=1  nothing = 0
+// Color[1]
+int VPreff[2] = {3, 2};
 
+char *TXT_Logo;
+
+char *TXT_say;
 char *TXT_saved;
 
-void Inicio();
+void ChangePreff(int xpreff[2]);
+void ResetText();
 
-void ResetText()
-{
-    if (Reset_Text_value == 0)
-    {
-        Reset_Text_value = 1;
-    }
-    else
-    {
-        Reset_Text_value = 0;
-    }
-}
-int View_ResetText()
-{
-    return Reset_Text_value;
-}
+void Text_Logo(char *xLogo);
+void Text_Say(char *x);
+void Text_Say_add(char *x);
 
-void Text_Saved(char *x)
-{
-    TXT_saved = x;
-}
-void view_Text_Saved()
-{
-    printf("%s", TXT_saved);
-}
+void Exit_Program();
 
-
-void ExitProgram()
-{
-    NOExitProgram = 1;
-}
-
-
-
-
-void Menu(){
-    
-}
-
+void *Central();
 
 int main(int argc, char const *argv[])
 {
-    
+    struct Structs_Fnormal Datas;
+    Datas.ChangePreff = ChangePreff;
+    Datas.Reset_text = ResetText;
 
-    
-    
+    Datas.Text_Logo = Text_Logo;
+    Datas.Text_Say = Text_Say;
+    Datas.Text_Say_add = Text_Say_add;
+
+    Datas.Exit_Program = Exit_Program;
+
+    pthread_t Center;
+    if (pthread_create(&Center, NULL, Central, NULL) != 0)
+    {
+        perror("Error al crear el Central, consultar a Gabyfroso");
+        exit(EXIT_FAILURE);
+    }
+
+    Inicio(&Datas);
+
     return 0;
 }
 
-void Inicio()
+void *Central()
 {
-    //Contendrá las funciones siguientes
+    int szConsole = 0;
 
-    /*
-        Menu - TFI - Ajustes - More Info
-    */
+    while (1)
+    {
 
-   //Section TFI
+        if (TXT_Reset)
+        {
+            system("cls");
+            char txt[6] = "color ";
+            char xtxtVpref[4] = (char)(VPreff[1]);
+            strcpy(txt, xtxtVpref);
+            system(txt);
+        }
 
+        switch (VPreff[0])
+        {
+        case 0: // TODO desactivado
+        {
+            if (TXT_Reset)
+            {
+                GGraphs_RecompletarDatos_y_Logo(TXT_Logo);
+                printf(TXT_say);
+                printf(TXT_saved);
+            }
+        }
+        break;
+        case 3: // TODO activado
+        {
+            if (SizeConsole() != szConsole)
+            {
+                szConsole = SizeConsole();
+                system("cls");
+                GGraphs_RecompletarDatos_y_Logo(TXT_Logo);
+                printf(TXT_say);
+                printf(TXT_saved);
+            }
+        }
+        break;
+        default:
+            perror("ERROR CRITICO EN VPreff");
+            break;
+        }
 
-    //Section Ajustes - Ajustes(&ArgStruct);
-    char *xLogo = "*********************\nNombre:\n Frosoni, Hugo Gabriel\nCorreo:\n Gabyfroso@gmail.com\n\nNumero:\n +5493816164351\nForced Exit -5\n*********************";
-    pthread_t Prefferences;
-    struct Structs_FPreff Str_Ajustes;
+        TXT_Reset = 0;
+    }
+    return NULL;
+}
 
-    Str_Ajustes.CharData = xLogo;
+/*
 
-    Str_Ajustes.Pref_ConsoleControl = VisualPrefferences[0];
-    Str_Ajustes.Pref_Color = VisualPrefferences[1];
+///
 
-    Str_Ajustes.ChangeReset = ResetText;
-    Str_Ajustes.Visual_Reset = View_ResetText();
-    Str_Ajustes.ExtProgram = NOExitProgram;
+>>>>>>>>>>>>>>>>>>> CENTRAL
 
-    //Section Mas info
+///
+
+*/
+
+void Text_Logo(char *xLogo)
+{
+    TXT_Logo = xLogo;
+}
+
+void ChangePreff(int xpreff[2])
+{
+    VPreff[0] = xpreff[0];
+    VPreff[1] = xpreff[1];
+}
+
+void ResetText()
+{
+    if (TXT_Reset == 0)
+    {
+        TXT_Reset = 1;
+    }
+    else
+    {
+        TXT_Reset = 0;
+    }
+}
+
+void Text_Say(char *x)
+{
+    TXT_say = x;
+}
+
+void Text_Say_add(char *x)
+{
+    TXT_saved = x;
+}
+
+// IMPORTANT
+void Exit_Program()
+{
+    NOExitProgram = 1;
 }
